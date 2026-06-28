@@ -1,0 +1,11 @@
+# west workspace artifacts (created by local builds, not part of your config)
+/.west/
+/build/
+/zmk/
+/zephyr/
+/modules/
+/tools/
+/bootloader/
+/optional/
+*.uf2
+*.code-workspace

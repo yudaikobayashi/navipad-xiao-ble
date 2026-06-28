@@ -1,0 +1,14 @@
+manifest:
+  remotes:
+    - name: zmkfirmware
+      url-base: https://github.com/zmkfirmware
+  projects:
+    - name: zmk
+      remote: zmkfirmware
+      # Pinned to a specific ZMK commit for reproducible builds.
+      # To update ZMK later, change this revision (a commit SHA, tag, or
+      # branch name like "main") and rebuild.
+      revision: 773dec58eaacaef4703b3e4595e50bd71f6cad3d
+      import: app/west.yml
+  self:
+    path: config

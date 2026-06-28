@@ -1,0 +1,17 @@
+{
+  "name": "navipad ZMK Build",
+  "image": "zmkfirmware/zmk-build-arm:stable",
+  "mounts": [
+    "type=volume,source=navipad-zmk,target=/workspaces/navipad-xiao-ble/zmk",
+    "type=volume,source=navipad-zephyr,target=/workspaces/navipad-xiao-ble/zephyr",
+    "type=volume,source=navipad-modules,target=/workspaces/navipad-xiao-ble/modules"
+  ],
+  "postCreateCommand": "(test -f .west/config || west init -l config) && west update && west zephyr-export",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-vscode.cpptools"
+      ]
+    }
+  }
+}

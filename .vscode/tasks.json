@@ -1,0 +1,22 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Build",
+      "type": "shell",
+      "command": "west build -s zmk/app -b xiao_ble -- -DSHIELD=navipad -DZMK_CONFIG=${workspaceFolder}/config",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Update ZMK",
+      "type": "shell",
+      "command": "west update",
+      "group": "none",
+      "problemMatcher": []
+    }
+  ]
+}

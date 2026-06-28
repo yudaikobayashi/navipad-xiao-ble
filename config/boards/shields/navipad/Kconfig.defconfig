@@ -1,0 +1,6 @@
+if SHIELD_NAVIPAD
+
+config ZMK_KEYBOARD_NAME
+    default "navipad"
+
+endif

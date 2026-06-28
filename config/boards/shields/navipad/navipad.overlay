@@ -1,0 +1,65 @@
+#include <physical_layouts.dtsi>
+#include <dt-bindings/zmk/matrix_transform.h>
+#include <zephyr/dt-bindings/gpio/gpio.h>
+
+/ {
+  chosen {
+    zmk,kscan = &kscan0;
+    zmk,studio-rpc-uart = &snippet_studio_rpc_usb_uart;
+  };
+
+  kscan0: kscan {
+    compatible = "zmk,kscan-gpio-matrix";
+    diode-direction = "col2row";
+    row-gpios = <&xiao_d 0 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,
+                <&xiao_d 1 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,
+                <&xiao_d 2 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,
+                <&xiao_d 3 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;
+    col-gpios = <&xiao_d 4 GPIO_ACTIVE_HIGH>,
+                <&xiao_d 5 GPIO_ACTIVE_HIGH>,
+                <&xiao_d 6 GPIO_ACTIVE_HIGH>;
+  };
+
+  navipad_transform: navipad_transform {
+    compatible = "zmk,matrix-transform";
+    columns = <3>;
+    rows = <4>;
+    map = <RC(0,0) RC(0,1) RC(0,2)
+           RC(1,0) RC(1,1) RC(1,2)
+           RC(2,1)
+           RC(3,0) RC(3,1) RC(3,2)>;
+  };
+
+  navipad_layout: navipad_layout {
+    compatible = "zmk,physical-layout";
+    display-name = "Navipad";
+    kscan = <&kscan0>;
+    transform = <&navipad_transform>;
+
+    // w, h, x, y, rot, rx, ry
+    keys = <&key_physical_attrs 100 100 0 0 0 0 0>,
+           <&key_physical_attrs 100 100 100 0 0 0 0>,
+           <&key_physical_attrs 100 100 200 0 0 0 0>,
+           <&key_physical_attrs 100 100 0 100 0 0 0>,
+           <&key_physical_attrs 100 100 100 100 0 0 0>,
+           <&key_physical_attrs 100 100 200 100 0 0 0>,
+           <&key_physical_attrs 100 100 100 300 0 0 0>,
+           <&key_physical_attrs 100 100 0 400 0 0 0>,
+           <&key_physical_attrs 100 100 100 400 0 0 0>,
+           <&key_physical_attrs 100 100 200 400 0 0 0>;
+  };
+};
+
+&zephyr_udc0 {
+  snippet_studio_rpc_usb_uart: snippet_studio_rpc_usb_uart {
+    compatible = "zephyr,cdc-acm-uart";
+  };
+};
+
+&gpio0 {
+  green_led_on {
+    gpio-hog;
+    gpios = <30 GPIO_ACTIVE_LOW>;
+    output-high;
+  };
+};
