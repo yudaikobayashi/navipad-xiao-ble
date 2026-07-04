@@ -18,4 +18,4 @@ ZMK firmware for a 10-key navigation pad using Seeed XIAO BLE.
 
 ## Updating ZMK
 
-Edit the `revision:` line in [`config/west.yml`](config/west.yml), then run `west update` and rebuild.
+Edit the `revision:` line in [`firmware/config/west.yml`](firmware/config/west.yml), then run `west update` and rebuild.

@@ -6,7 +6,7 @@
     "type=volume,source=navipad-zephyr,target=/workspaces/navipad-xiao-ble/zephyr",
     "type=volume,source=navipad-modules,target=/workspaces/navipad-xiao-ble/modules"
   ],
-  "postCreateCommand": "(test -f .west/config || west init -l config) && west update && west zephyr-export",
+  "postCreateCommand": "(west config manifest.path firmware/config 2>/dev/null || west init -l firmware/config) && west update && west zephyr-export",
   "customizations": {
     "vscode": {
       "extensions": [

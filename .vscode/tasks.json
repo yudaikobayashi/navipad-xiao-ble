@@ -4,7 +4,7 @@
     {
       "label": "Build",
       "type": "shell",
-      "command": "west build -s zmk/app -b xiao_ble -- -DSHIELD=navipad -DZMK_CONFIG=${workspaceFolder}/config",
+      "command": "west build -s zmk/app -b xiao_ble -- -DSHIELD=navipad -DZMK_CONFIG=${workspaceFolder}/firmware/config",
       "group": {
         "kind": "build",
         "isDefault": true
