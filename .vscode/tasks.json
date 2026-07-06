@@ -12,6 +12,16 @@
       "problemMatcher": []
     },
     {
+      "label": "Apply patches",
+      "type": "shell",
+      "command": "west patch -l patches.yml -b patches apply",
+      "options": {
+        "cwd": "${workspaceFolder}/firmware/config"
+      },
+      "group": "none",
+      "problemMatcher": []
+    },
+    {
       "label": "Update ZMK",
       "type": "shell",
       "command": "west update",

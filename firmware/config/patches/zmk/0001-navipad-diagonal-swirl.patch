@@ -1,0 +1,33 @@
+diff --git a/app/src/rgb_underglow.c b/app/src/rgb_underglow.c
+index 3453fb44..4373436e 100644
+--- a/app/src/rgb_underglow.c
++++ b/app/src/rgb_underglow.c
+@@ -163,10 +163,27 @@ static void zmk_rgb_underglow_effect_spectrum(void) {
+     state.animation_step = state.animation_step % HUE_MAX;
+ }
+ 
++/*
++ * navipad: swirl by board position (x + y) instead of chain index, so the
++ * rainbow flows diagonally across the physical layout. hue_span narrows the
++ * gradient so neighbors stay close in color (a wide span over 10 uneven LEDs
++ * looks random). Local fork of upstream ZMK -- re-check after `west update`.
++ *
++ *   [0][1][2]   i:    0   1   2   3   4   5   6   7   8   9
++ *   [3][4][5]   x+y:  0 100 200 100 200 300 400 400 500 600
++ *      [6]
++ *   [7][8][9]
++ */
+ static void zmk_rgb_underglow_effect_swirl(void) {
++    static const uint16_t navipad_diag[] = {0, 100, 200, 100, 200, 300, 400, 400, 500, 600};
++    const uint16_t diag_max = 600;
++    const uint16_t hue_span = 120; /* smaller = tighter gradient, larger = more colorful */
++
+     for (int i = 0; i < STRIP_NUM_PIXELS; i++) {
+         struct zmk_led_hsb hsb = state.color;
+-        hsb.h = (HUE_MAX / STRIP_NUM_PIXELS * i + state.animation_step) % HUE_MAX;
++        uint16_t diag = (i < (int)ARRAY_SIZE(navipad_diag)) ? navipad_diag[i] : 0;
++        /* + HUE_MAX - step flows bottom-right -> top-left (use + step to reverse) */
++        hsb.h = (hue_span * diag / diag_max + HUE_MAX - state.animation_step) % HUE_MAX;
+ 
+         pixels[i] = hsb_to_rgb(hsb_scale_min_max(hsb));
+     }

@@ -1,0 +1,13 @@
+patches:
+  - path: zmk/0001-navipad-diagonal-swirl.patch
+    sha256sum: 80a37ff18a2e7e8fbf67654bba9de013224015198c5db89f3700170268e232ad
+    module: zmk
+    author: yudaikobayashi
+    email: yudaiiaduy5296@gmail.com
+    date: 2026-07-05
+    upstreamable: false
+    comments: |
+      navipad: make the RGB underglow SWIRL effect flow diagonally by board
+      position (x + y) instead of electrical chain index, with a narrowed hue
+      span so the gradient reads as a smooth flowing band over the 10 LEDs.
+      Local customization; not intended for upstream.
