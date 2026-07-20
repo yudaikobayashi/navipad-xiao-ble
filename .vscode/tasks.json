@@ -2,19 +2,43 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "Build",
+      "label": "0. Setup (Windows native)",
+      "type": "shell",
+      "command": "echo 'Setup (Windows native) is only available on Windows.' && exit 1",
+      "windows": {
+        "command": "${workspaceFolder}\\scripts\\setup.bat"
+      },
+      "group": "none",
+      "problemMatcher": []
+    },
+    {
+      "label": "1. Build",
       "type": "shell",
       "command": "west build -s zmk/app -b xiao_ble -- -DSHIELD=navipad -DZMK_CONFIG=${workspaceFolder}/firmware/config",
-      "group": {
-        "kind": "build",
-        "isDefault": true
+      "windows": {
+        "command": "${workspaceFolder}\\.venv\\Scripts\\west build -s zmk/app -b xiao_ble -- -DSHIELD=navipad -DZMK_CONFIG=${workspaceFolder}/firmware/config"
       },
+      "group": "build",
       "problemMatcher": []
+    },
+    {
+      "label": "2. Flash",
+      "type": "shell",
+      "command": "echo 'Flash is only available on Windows.' && exit 1",
+      "windows": {
+        "command": "${workspaceFolder}\\scripts\\flash-watch.bat"
+      },
+      "group": "build",
+      "problemMatcher": [],
+      "isBackground": true
     },
     {
       "label": "Apply patches",
       "type": "shell",
-      "command": "west patch -l patches.yml -b patches apply",
+      "command": "west patch -l patches.yml -b patches clean && west patch -l patches.yml -b patches apply",
+      "windows": {
+        "command": "${workspaceFolder}\\.venv\\Scripts\\west patch -l patches.yml -b patches clean; ${workspaceFolder}\\.venv\\Scripts\\west patch -l patches.yml -b patches apply"
+      },
       "options": {
         "cwd": "${workspaceFolder}/firmware/config"
       },
@@ -25,6 +49,9 @@
       "label": "Update ZMK",
       "type": "shell",
       "command": "west update",
+      "windows": {
+        "command": "${workspaceFolder}\\.venv\\Scripts\\west update -o=--depth=1 --narrow"
+      },
       "group": "none",
       "problemMatcher": []
     }

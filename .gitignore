@@ -1,5 +1,6 @@
 # west workspace artifacts (created by local builds, not part of your config)
 /.west/
+/.venv/
 /build/
 /zmk/
 /zephyr/
